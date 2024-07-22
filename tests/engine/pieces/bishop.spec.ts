@@ -1,3 +1,4 @@
+import { expect } from 'chai';
 import Bishop from '../../../src/engine/pieces/bishop';
 import Board from '../../../src/engine/board';
 import Player from '../../../src/engine/player';
@@ -20,8 +21,14 @@ describe('Bishop', () => {
             Square.at(0, 5), Square.at(1, 4), Square.at(3, 2), Square.at(4, 1), Square.at(5, 0)
         ];
 
-        moves.should.deep.include.members(expectedMoves);
+        // Convert moves to a comparable format
+        const actualMoves = moves.map(square => ({ row: square.row, col: square.col }));
+        const expectedMovesFormatted = expectedMoves.map(square => ({ row: square.row, col: square.col }));
+
+        expect(actualMoves).to.have.deep.members(expectedMovesFormatted);
     });
+    //     moves.should.deep.include.members(expectedMoves);
+    // });
 
     it('cannot make any other moves', () => {
         const bishop = new Bishop(Player.WHITE);
