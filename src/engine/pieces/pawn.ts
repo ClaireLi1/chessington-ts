@@ -21,8 +21,14 @@ export default class Pawn extends Piece {
             available_moves.push(new Square(current_row - 1, current_col));
         }
 
-        console.log(available_moves);
-        return available_moves
+        if (current_row === 1 || current_row === 6){
+            if (this.player === Player.WHITE){
+                available_moves.push(new Square(current_row + 2, current_col));
+            }else{
+                available_moves.push(new Square(current_row - 2, current_col));
+            }
+        }
 
+        return available_moves
     }
 }
