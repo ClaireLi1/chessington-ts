@@ -3,6 +3,7 @@ import Player from '../player';
 import Board from '../board';
 import Square from '../square';
 import GameSettings from '../gameSettings';
+import King from './king';
 
 export default class Rook extends Piece {
     public constructor(player: Player) {
@@ -29,15 +30,20 @@ export default class Rook extends Piece {
             let row = current_row + direction.row_move;
             let col = current_col + direction.col_move;
 
-            while (this.isOnBoard(board_size, row, col)){
+            while (this.isOnBoard(board_size, row, col)) {
 
-                var new_square: Square = new Square(row, col)
+                var new_square: Square = new Square(row, col);
 
-                available_moves.push(new_square)
+                var piece: Piece | undefined = board.getPiece(new_square);
 
-                if (!!board.getPiece(new_square)){
+                if (!!piece) {
+                    if (piece.player !== this.player && !(piece instanceof King)) {
+                        available_moves.push(new_square);
+                    }
                     break;
                 }
+
+                available_moves.push(new_square);
 
                 row += direction.row_move
                 col += direction.col_move
@@ -48,7 +54,7 @@ export default class Rook extends Piece {
         return available_moves
     }
 
-    private isOnBoard(board_size: number, row: number, col: number){
+    private isOnBoard(board_size: number, row: number, col: number) {
         return (row >= 0 && row < board_size && col >= 0 && col < board_size);
     }
 }
