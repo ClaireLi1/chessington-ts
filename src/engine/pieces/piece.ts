@@ -17,4 +17,8 @@ export default class Piece {
         const currentSquare = board.findPiece(this);
         board.movePiece(currentSquare, newSquare);
     }
+
+    protected isOnBoard(board_size: number, row: number, col: number): boolean {
+        return (row >= 0 && row < board_size && col >= 0 && col < board_size);
+    }
 }

@@ -57,8 +57,4 @@ export default class Queen extends Piece {
 
         return available_moves
     }
-
-    private isOnBoard(board_size: number, row: number, col: number) {
-        return (row >= 0 && row < board_size && col >= 0 && col < board_size);
-    }
 }
