@@ -16,30 +16,43 @@ export default class Queen extends Piece {
 
         const available_moves: Square[] = [];
 
-        const coords_sum: number = current_row + current_col;
-        const coords_diff: number = current_row - current_col;
-
         const board_size:number = GameSettings.BOARD_SIZE
 
-        for (let i = 0; i < board_size; i++) {
-            if (i != current_row){
-                available_moves.push(new Square(i, current_col))
+        const directions = [
+            {row_move: -1, col_move: 0}, 
+            {row_move: 1, col_move: 0},
+            {row_move: 0, col_move: 1},
+            {row_move: 0, col_move: -1},
+            {row_move: -1, col_move: -1}, 
+            {row_move: 1, col_move: 1}, 
+            {row_move: 1, col_move: -1}, 
+            {row_move: -1, col_move: 1}
+        ]
 
-                if (coords_sum - i >= 0 && coords_sum - i < board_size){
-                    available_moves.push(new Square(i, coords_sum - i))
+        for (var direction of directions){
+            let row = current_row + direction.row_move;
+            let col = current_col + direction.col_move;
+
+            while (this.isOnBoard(board_size, row, col)){
+
+                var new_square: Square = new Square(row, col)
+
+                available_moves.push(new_square)
+
+                if (!!board.getPiece(new_square)){
+                    break;
                 }
-            }
 
-            if (i != current_col){
-                available_moves.push(new Square(current_row, i))
-
-                if (i + coords_diff >= 0 && i + coords_diff < board_size){
-                    available_moves.push(new Square(i + coords_diff, i))
-                }
+                row += direction.row_move
+                col += direction.col_move
             }
 
         }
 
         return available_moves
+    }
+
+    private isOnBoard(board_size: number, row: number, col: number){
+        return (row >= 0 && row < board_size && col >= 0 && col < board_size);
     }
 }

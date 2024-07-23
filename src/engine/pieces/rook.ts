@@ -33,7 +33,7 @@ export default class Rook extends Piece {
 
                 var new_square: Square = new Square(row, col)
 
-                available_moves.push(new Square(row, col))
+                available_moves.push(new_square)
 
                 if (!!board.getPiece(new_square)){
                     break;
