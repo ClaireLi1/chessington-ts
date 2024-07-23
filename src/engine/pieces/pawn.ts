@@ -18,29 +18,41 @@ export default class Pawn extends Piece {
 
         var available_moves: Square[] = [];
 
-        if (this.player === Player.WHITE){
-            available_moves.push(new Square(current_row + 1, current_col));
-        }else{
-            available_moves.push(new Square(current_row - 1, current_col));
-        }
-
-        if (current_row === 1 && this.player === Player.WHITE) {
-            if (!board.getPiece(new Square(current_row + 1, current_col))) {
-                available_moves.push(new Square(current_row + 2, current_col));
-            }
-        }
+        const row_move = 1
         
-        if (current_row === board_size - 2 && this.player === Player.BLACK){
-            if (!board.getPiece(new Square(current_row - 1, current_col))) {
-                available_moves.push(new Square(current_row - 2, current_col));
-            }
+        var max_dist: number = 1
+
+        if ((this.player === Player.WHITE && current_row === 1) || (this.player === Player.BLACK && current_row === board_size - 2)) {
+            max_dist = 2
         }
 
 
-        let condition = (item: Square) => !board.getPiece(item) == true
+        let row = current_row;
+        let col = current_col;
 
-        available_moves = available_moves.filter(item => condition(item))
+        for (let i = 1; i <= max_dist; i++) {
+
+            if (this.player === Player.WHITE) {
+                row += row_move
+            } else {
+                row -= row_move
+            }
+            
+
+            var new_square: Square = new Square(row, col)
+
+            if (!this.isOnBoard(board_size, row, col) || !!board.getPiece(new_square)) {
+                break
+            }
+
+            available_moves.push(new_square)
+
+        }
 
         return available_moves
+    }
+
+    private isOnBoard(board_size: number, row: number, col: number) {
+        return (row >= 0 && row < board_size && col >= 0 && col < board_size);
     }
 }
