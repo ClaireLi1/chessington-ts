@@ -69,6 +69,8 @@ function onDrop(source, target) {
         return 'snapback';
     }
     pieceToMove.moveTo(board, toSquare);
+
+    boardUI.position(boardToPositionObject(board));
     updateStatus();
 }
 
