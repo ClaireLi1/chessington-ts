@@ -20,10 +20,10 @@ export default class Rook extends Piece {
         const board_size: number = GameSettings.BOARD_SIZE;
 
         const directions = [
-            {row_move: -1, col_move: 0}, //left
-            {row_move: 1, col_move: 0}, //right
-            {row_move: 0, col_move: 1}, //up
-            {row_move: 0, col_move: -1} //down
+            {row_move: -1, col_move: 0},
+            {row_move: 1, col_move: 0},
+            {row_move: 0, col_move: 1},
+            {row_move: 0, col_move: -1}
         ]
 
         for (var direction of directions){
