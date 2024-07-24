@@ -69,7 +69,7 @@ export default class Pawn extends Piece {
 
         }
 
-        var directions = [{row_move : 1, col_move : 1}, {row_move : 1, col_move : -1}]
+        var directions = [{row_move : 1, col_move : 1}, {row_move : 1, col_move : -1}];
 
         for (var direction of directions) {
 

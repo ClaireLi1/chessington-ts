@@ -17,7 +17,7 @@ export default class Queen extends Piece {
 
         const available_moves: Square[] = [];
 
-        const board_size:number = GameSettings.BOARD_SIZE
+        const board_size:number = GameSettings.BOARD_SIZE;
 
         const directions = [
             {row_move: -1, col_move: 0}, 
@@ -36,7 +36,7 @@ export default class Queen extends Piece {
 
             while (this.isOnBoard(board_size, row, col)) {
 
-                var new_square: Square = new Square(row, col)
+                var new_square: Square = new Square(row, col);
 
                 var piece: Piece | undefined = board.getPiece(new_square);
 
@@ -49,12 +49,12 @@ export default class Queen extends Piece {
 
                 available_moves.push(new_square);
 
-                row += direction.row_move
-                col += direction.col_move
+                row += direction.row_move;
+                col += direction.col_move;
             }
 
         }
 
-        return available_moves
+        return available_moves;
     }
 }

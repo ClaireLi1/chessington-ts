@@ -16,17 +16,17 @@ export default class King extends Piece {
 
         const available_moves: Square[] = [];
 
-        const board_size:number = GameSettings.BOARD_SIZE
+        const board_size:number = GameSettings.BOARD_SIZE;
 
         const pos_list: number[][] = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]];
 
         for (var position of pos_list) {
-            var new_row: number = current_row + position[0]
-            var new_col: number = current_col + position[1]
+            var new_row: number = current_row + position[0];
+            var new_col: number = current_col + position[1];
             
             if (this.isOnBoard(board_size, new_row, new_col)) {
 
-                var new_square: Square = new Square(new_row, new_col)
+                var new_square: Square = new Square(new_row, new_col);
 
                 var piece: Piece | undefined = board.getPiece(new_square);
 
@@ -35,11 +35,11 @@ export default class King extends Piece {
                         available_moves.push(new_square);
                     }
                 } else {
-                    available_moves.push(new Square(new_row, new_col))
+                    available_moves.push(new Square(new_row, new_col));
                 }  
             }
         }
         
-        return available_moves
+        return available_moves;
     }
 }

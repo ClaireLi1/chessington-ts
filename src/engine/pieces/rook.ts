@@ -45,13 +45,13 @@ export default class Rook extends Piece {
 
                 available_moves.push(new_square);
 
-                row += direction.row_move
-                col += direction.col_move
+                row += direction.row_move;
+                col += direction.col_move;
             }
 
         }
 
-        return available_moves
+        return available_moves;
     }
 
 }

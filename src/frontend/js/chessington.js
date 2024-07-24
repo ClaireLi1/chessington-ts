@@ -71,6 +71,7 @@ function onDrop(source, target) {
     pieceToMove.moveTo(board, toSquare);
 
     boardUI.position(boardToPositionObject(board));
+    
     updateStatus();
 }
 

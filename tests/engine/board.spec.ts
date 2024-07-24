@@ -62,10 +62,10 @@ describe('Board', () => {
             }
             
             const capturedBlackPawn = board.getPiece(enPassantCaptureSquare);
-            assert.equal(capturedBlackPawn, blackPawn)
+            assert.equal(capturedBlackPawn, blackPawn);
 
             const removedWhitePawn = board.getPiece(whitePawnEndPosition);
-            assert.equal(removedWhitePawn, undefined)
+            assert.equal(removedWhitePawn, undefined);
 
         });
 

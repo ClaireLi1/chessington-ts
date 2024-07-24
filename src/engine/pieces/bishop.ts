@@ -17,7 +17,7 @@ export default class Bishop extends Piece {
 
         const available_moves: Square[] = [];
 
-        const board_size:number = GameSettings.BOARD_SIZE
+        const board_size:number = GameSettings.BOARD_SIZE;
 
 
         const directions = [
@@ -33,7 +33,7 @@ export default class Bishop extends Piece {
 
             while (this.isOnBoard(board_size, row, col)) {
 
-                var new_square: Square = new Square(row, col)
+                var new_square: Square = new Square(row, col);
 
                 var piece: Piece | undefined = board.getPiece(new_square);
 
@@ -46,12 +46,12 @@ export default class Bishop extends Piece {
 
                 available_moves.push(new_square);
 
-                row += direction.row_move
-                col += direction.col_move
+                row += direction.row_move;
+                col += direction.col_move;
             }
 
         }
 
-        return available_moves
+        return available_moves;
     }
 }
