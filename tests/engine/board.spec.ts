@@ -1,8 +1,10 @@
 import 'chai/register-should';
+import { assert } from "chai";
 import Board from '../../src/engine/board';
 import Pawn from '../../src/engine/pieces/pawn';
 import Player from '../../src/engine/player';
 import Square from '../../src/engine/square';
+import Rook from '../../src/engine/pieces/rook';
 
 describe('Board', () => {
 
@@ -36,6 +38,66 @@ describe('Board', () => {
 
             // Assert
             board.findPiece(pawn).should.eql(square); // Object equivalence: different objects, same data
+        });
+
+        it('allow en passant move', () => {
+            const whitePawn = new Pawn(Player.WHITE);
+            const blackPawn = new Pawn(Player.BLACK);
+            const whiteStart = Square.at(1, 4);
+            const whiteEnd = Square.at(3, 4);
+            const blackStart = Square.at(3, 3);
+            const enPassantCaptureSquare = Square.at(2, 4);
+            const whitePawnEndPosition = Square.at(3, 4);
+
+            board.setPiece(whiteStart, whitePawn);
+            board.setPiece(blackStart, blackPawn);
+
+            whitePawn.moveTo(board, whiteEnd); 
+
+            const moves = blackPawn.getAvailableMoves(board);
+
+            moves.should.deep.include(enPassantCaptureSquare);
+
+            if (moves.some(move => move.equals(enPassantCaptureSquare))) {
+                blackPawn.moveTo(board, enPassantCaptureSquare);
+            }
+            
+            const capturedBlackPawn = board.getPiece(enPassantCaptureSquare);
+            assert.equal(capturedBlackPawn, blackPawn);
+
+            const removedWhitePawn = board.getPiece(whitePawnEndPosition);
+            assert.equal(removedWhitePawn, undefined);
+
+        });
+
+        it('Forbid en passant move otherwise', () => {
+            const whitePawn = new Pawn(Player.WHITE);
+            const blackPawn = new Pawn(Player.BLACK);
+            const whiteRook = new Rook(Player.WHITE);
+            const blackRook = new Rook(Player.BLACK);
+
+            board.setPiece(Square.at(1, 4), whitePawn);
+            board.setPiece(Square.at(3, 3), blackPawn);
+            board.setPiece(Square.at(0, 0), whiteRook);
+            board.setPiece(Square.at(7, 7), blackRook)
+
+            whitePawn.moveTo(board, Square.at(3, 4)); 
+
+            var moves = blackRook.getAvailableMoves(board);
+            
+            if (moves.some(move => move.equals(Square.at(7, 6)))) {
+                blackRook.moveTo(board, Square.at(7, 6));
+            }
+
+            moves = whiteRook.getAvailableMoves(board);
+
+            if (moves.some(move => move.equals(Square.at(1, 0)))) {
+                whiteRook.moveTo(board, Square.at(1, 0));
+            }
+
+            moves = blackPawn.getAvailableMoves(board);
+
+            moves.should.not.deep.include(Square.at(2, 4));
         });
 
     });
