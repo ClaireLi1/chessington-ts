@@ -4,6 +4,7 @@ import Board from '../../src/engine/board';
 import Pawn from '../../src/engine/pieces/pawn';
 import Player from '../../src/engine/player';
 import Square from '../../src/engine/square';
+import Rook from '../../src/engine/pieces/rook';
 
 describe('Board', () => {
 
@@ -67,6 +68,36 @@ describe('Board', () => {
             const removedWhitePawn = board.getPiece(whitePawnEndPosition);
             assert.equal(removedWhitePawn, undefined);
 
+        });
+
+        it('Forbid en passant move otherwise', () => {
+            const whitePawn = new Pawn(Player.WHITE);
+            const blackPawn = new Pawn(Player.BLACK);
+            const whiteRook = new Rook(Player.WHITE);
+
+            board.setPiece(Square.at(1, 4), whitePawn);
+            board.setPiece(Square.at(4, 3), blackPawn);
+            board.setPiece(Square.at(0, 0), whiteRook);
+
+            whitePawn.moveTo(board, Square.at(3, 4)); 
+
+            var moves = blackPawn.getAvailableMoves(board);
+
+            moves.should.not.deep.include(Square.at(2, 4));
+
+            if (moves.some(move => move.equals(Square.at(3, 3)))) {
+                blackPawn.moveTo(board, Square.at(3, 3));
+            }
+
+            moves = whiteRook.getAvailableMoves(board);
+
+            if (moves.some(move => move.equals(Square.at(1, 0)))) {
+                blackPawn.moveTo(board, Square.at(1, 0));
+            }
+
+            moves = blackPawn.getAvailableMoves(board);
+
+            moves.should.not.deep.include(Square.at(2, 4));
         });
 
     });
