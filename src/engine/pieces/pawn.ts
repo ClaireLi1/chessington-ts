@@ -33,17 +33,6 @@ export default class Pawn extends Piece {
         }
     }
 
-    private resetEnPassantFlags(board: Board) {
-        for (let row = 0; row < GameSettings.BOARD_SIZE; row++) {
-            for (let col = 0; col < GameSettings.BOARD_SIZE; col++) {
-                const piece = board.getPiece(Square.at(row, col));
-                if (piece instanceof Pawn) {
-                    piece.enpassant_flag = false;
-                }
-            }
-        }
-    }
-
     public getAvailableMoves(board: Board) {
         const current_square: Square = board.findPiece(this);
         const current_row: number = current_square.row;
