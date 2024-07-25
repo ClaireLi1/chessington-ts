@@ -4,6 +4,7 @@ import Board from '../board';
 import Square from '../square';
 import GameSettings from '../gameSettings';
 import King from './king';
+import { Direction } from '../direction';
 
 export default class Pawn extends Piece {
     enpassant_flag: boolean;
@@ -19,7 +20,6 @@ export default class Pawn extends Piece {
     public moveTo(board: Board, newSquare: Square) {
         const currentSquare = board.findPiece(this);
 
-
         if (Math.abs(newSquare.col - currentSquare.col) === 1 && board.getPiece(newSquare) === undefined) {  // This checks if an en passant move is being performed
             const capturedPawnSquare = new Square(currentSquare.row, newSquare.col); 
             const capturedPawn = board.getPiece(capturedPawnSquare);
@@ -28,9 +28,7 @@ export default class Pawn extends Piece {
             }
         }
 
-        board.movePiece(currentSquare, newSquare);
-
-        this.resetEnPassantFlags(board);
+        super.moveTo(board, newSquare);
 
         if (Math.abs(newSquare.row - currentSquare.row) === 2) {
             this.enpassant_flag = true;
@@ -62,7 +60,8 @@ export default class Pawn extends Piece {
 
         }
 
-        var directions = [{row_move : 1, col_move : 1}, {row_move : 1, col_move : -1}];
+        var directions: Direction[] = [{row_move : 1, col_move : 1}, 
+                                        {row_move : 1, col_move : -1}];
 
         for (var direction of directions) {
 
