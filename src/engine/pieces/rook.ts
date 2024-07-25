@@ -3,8 +3,7 @@ import Player from '../player';
 import Board from '../board';
 import Square from '../square';
 import GameSettings from '../gameSettings';
-import King from './king';
-import { getAvailableMovesInDirections } from './available_moves_helper';
+import { getAvailableMovesBQR } from './available_moves_helper';
 
 export default class Rook extends Piece {
     public constructor(player: Player) {
@@ -25,7 +24,7 @@ export default class Rook extends Piece {
             {row_move: 0, col_move: -1}
         ]
 
-        const available_moves: Square[] = getAvailableMovesInDirections(
+        const available_moves: Square[] = getAvailableMovesBQR(
             directions,
             current_row,
             current_col,

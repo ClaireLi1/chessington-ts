@@ -3,7 +3,7 @@ import Player from '../player';
 import Board from '../board';
 import Square from '../square';
 import GameSettings from '../gameSettings';
-import { getAvailableMovesInDirections } from './available_moves_helper';
+import { getAvailableMovesBQR } from './available_moves_helper';
 
 export default class Bishop extends Piece {
     public constructor(player: Player) {
@@ -25,7 +25,7 @@ export default class Bishop extends Piece {
             {row_move: -1, col_move: 1} 
         ]
 
-        const available_moves: Square[] = getAvailableMovesInDirections(
+        const available_moves: Square[] = getAvailableMovesBQR(
             directions,
             current_row,
             current_col,

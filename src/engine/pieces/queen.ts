@@ -5,7 +5,7 @@ import Square from '../square';
 import GameSettings from '../gameSettings';
 import King from './king';
 import { Direction } from '../direction';
-import { getAvailableMovesInDirections } from './available_moves_helper';
+import { getAvailableMovesBQR } from './available_moves_helper';
 
 
 export default class Queen extends Piece {
@@ -31,7 +31,7 @@ export default class Queen extends Piece {
             {row_move: -1, col_move: 1}
         ]
 
-        const available_moves: Square[] = getAvailableMovesInDirections(
+        const available_moves: Square[] = getAvailableMovesBQR(
             directions,
             current_row,
             current_col,
