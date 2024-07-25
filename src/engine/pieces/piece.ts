@@ -21,7 +21,7 @@ export default class Piece {
         this.resetEnPassantFlags(board);
     }
 
-    protected isOnBoard(board_size: number, row: number, col: number): boolean {
+    public isOnBoard(board_size: number, row: number, col: number): boolean {
         return (row >= 0 && row < board_size && col >= 0 && col < board_size);
     }
 
