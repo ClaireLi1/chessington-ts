@@ -13,14 +13,18 @@ export default class Pawn extends Piece {
         this.enpassant_flag = false;
     }
 
+    // En passant is implemented in this program using an enpassant_flag being set to the pawns.
+    // This flag is on if a pawn makes a two square move. This is turned off after the opponent's immediate move after this.
+    // This moveTo overwrites the one in pieces because the logic is different to others. i.e. it allows enpassant_flag to be turned on and en passant move to be performed.
     public moveTo(board: Board, newSquare: Square) {
         const currentSquare = board.findPiece(this);
 
-        if (Math.abs(newSquare.col - currentSquare.col) === 1 && board.getPiece(newSquare) === undefined) {
-            const capturedPawnSquare = new Square(currentSquare.row, newSquare.col);
+
+        if (Math.abs(newSquare.col - currentSquare.col) === 1 && board.getPiece(newSquare) === undefined) {  // This checks if an en passant move is being performed
+            const capturedPawnSquare = new Square(currentSquare.row, newSquare.col); 
             const capturedPawn = board.getPiece(capturedPawnSquare);
-            if (capturedPawn instanceof Pawn && capturedPawn.enpassant_flag == true) {
-                board.setPiece(capturedPawnSquare, undefined);
+            if (capturedPawn instanceof Pawn && capturedPawn.enpassant_flag == true) { // Make sure the enpassant move is permitted
+                board.setPiece(capturedPawnSquare, undefined); // The square at which the captured pawn is is different to where the attacking Pawn is moving to. This removes the captured pawn from the board.
             }
         }
 
