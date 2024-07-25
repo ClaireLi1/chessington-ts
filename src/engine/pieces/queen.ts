@@ -4,6 +4,7 @@ import Board from '../board';
 import Square from '../square';
 import GameSettings from '../gameSettings';
 import King from './king';
+import { Direction } from '../direction';
 
 export default class Queen extends Piece {
     public constructor(player: Player) {
@@ -17,9 +18,9 @@ export default class Queen extends Piece {
 
         const available_moves: Square[] = [];
 
-        const board_size:number = GameSettings.BOARD_SIZE;
+        const board_size: number = GameSettings.BOARD_SIZE;
 
-        const directions = [
+        const directions: Direction[] = [
             {row_move: -1, col_move: 0}, 
             {row_move: 1, col_move: 0},
             {row_move: 0, col_move: 1},
