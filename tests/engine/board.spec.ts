@@ -74,25 +74,25 @@ describe('Board', () => {
             const whitePawn = new Pawn(Player.WHITE);
             const blackPawn = new Pawn(Player.BLACK);
             const whiteRook = new Rook(Player.WHITE);
+            const blackRook = new Rook(Player.BLACK);
 
             board.setPiece(Square.at(1, 4), whitePawn);
-            board.setPiece(Square.at(4, 3), blackPawn);
+            board.setPiece(Square.at(3, 3), blackPawn);
             board.setPiece(Square.at(0, 0), whiteRook);
+            board.setPiece(Square.at(7, 7), blackRook)
 
             whitePawn.moveTo(board, Square.at(3, 4)); 
 
-            var moves = blackPawn.getAvailableMoves(board);
-
-            moves.should.not.deep.include(Square.at(2, 4));
-
-            if (moves.some(move => move.equals(Square.at(3, 3)))) {
-                blackPawn.moveTo(board, Square.at(3, 3));
+            var moves = blackRook.getAvailableMoves(board);
+            
+            if (moves.some(move => move.equals(Square.at(7, 6)))) {
+                blackRook.moveTo(board, Square.at(7, 6));
             }
 
             moves = whiteRook.getAvailableMoves(board);
 
             if (moves.some(move => move.equals(Square.at(1, 0)))) {
-                blackPawn.moveTo(board, Square.at(1, 0));
+                whiteRook.moveTo(board, Square.at(1, 0));
             }
 
             moves = blackPawn.getAvailableMoves(board);
